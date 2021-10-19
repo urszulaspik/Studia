@@ -14,8 +14,7 @@ class Fraction:
         :param denom: denominator
         """
         if denom == 0:
-            raise ZeroDivisionError(
-                "Franction cannot have zero in denominator.")
+            raise ZeroDivisionError("Franction cannot have zero in denominator.")
         elif type(nom) != int or type(denom) != int:
             raise TypeError("Nominator and denominator have to be integer.")
         sign = 1 if nom * denom > 0 else -1 if nom * denom < 0 else 0
