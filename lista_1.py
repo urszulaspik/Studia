@@ -8,9 +8,9 @@ class Fraction:
     proper: inform if Fraction should
     be in proper or in inproper form
     """
-    
+
     proper = False
-    
+
     def __init__(self, nom: int, denom: int):
         """
         Create a fraction with both 
@@ -25,7 +25,8 @@ class Fraction:
             TypeError: Nominator and denominator have to be integer
         """
         if denom == 0:
-            raise ZeroDivisionError("Franction cannot have zero in denominator.")
+            raise ZeroDivisionError(
+                "Franction cannot have zero in denominator.")
         elif type(nom) != int or type(denom) != int:
             raise TypeError("Nominator and denominator have to be integer.")
         sign = 1 if nom*denom > 0 else -1 if nom*denom < 0 else 0
@@ -49,9 +50,9 @@ class Fraction:
         elif self.proper == True:
             int_num = (abs(self.nom)//self.denom)*self.sign
             if int_num != 0:
-                return f"{int_num} {self.nom%self.denom}/{self.denom}"
+                return f"{int_num} {abs(self.nom)%self.denom}/{self.denom}"
         return f"{self.nom}/{self.denom}"
-    
+
     def fractionconvert(self, number):
         """
         Check if number is Fraction class
@@ -73,7 +74,8 @@ class Fraction:
             befcomma = num[0:comma]
             aftcomma = num[comma+1:]
             denom = 10**(len(aftcomma))
-            nom = int(aftcomma) + int(befcomma)*denom
+            sign = 1 if number > 0 else -1 if number < 0 else 0
+            nom = sign*(int(aftcomma) + abs(int(befcomma))*denom)
             return Fraction(nom, denom)
 
     def __add__(self, other):
@@ -88,7 +90,7 @@ class Fraction:
         """
         other = self.fractionconvert(other)
         return Fraction(self.nom * other.denom + other.nom * self.denom, self.denom * other.denom)
-    
+
     def __radd__(self, other):
         """
         Add Fraction and other number, right addition operator
@@ -113,7 +115,7 @@ class Fraction:
         """
         other = self.fractionconvert(other)
         return self + (-1)*other
-    
+
     def __rsub__(self, other):
         """
         Subtract other number from the Fraction, right subtraction operator
@@ -124,7 +126,7 @@ class Fraction:
         Returns:
             (Fraction): Difference of other number and Fraction
         """
-        return other +(-1)*self
+        return other + (-1)*self
 
     def __mul__(self, other):
         """
@@ -138,7 +140,7 @@ class Fraction:
         """
         other = self.fractionconvert(other)
         return Fraction(self.nom * other.nom, self.denom * other.denom)
-    
+
     def __rmul__(self, other):
         """
         Multiply Fraction and other number, right multiplication operator
